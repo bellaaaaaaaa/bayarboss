@@ -5,11 +5,48 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' %>
+    <%= stylesheet_link_tag    'https://use.fontawesome.com/releases/v5.4.2/css/all.css' %>
+    <%= stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Montserrat:200, 300, 400, 700' %>
+
+    <%= javascript_include_tag 'https://js.braintreegateway.com/web/3.6.3/js/client.min.js' %>
+    <%= javascript_include_tag 'https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js' %>
+    <%= javascript_include_tag 'https://unpkg.com/jspdf@latest/dist/jspdf.min.js' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js' %>
+    <%= javascript_include_tag 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', 'data-turbolinks-track': 'reload' %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+  <nav class="customnav navbar navbar-expand-lg navbar-dark sticky-top bg-white border-bottom border-muted">
+  <a class="navbar-brand text-dark" href="/"><i class="fas fa-brain mr-1"></i>Bayarboss</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+    <div class="navbar-links">
+      <ul class="navbar-nav mr-auto">
+      
+      <% if logged_in? %>
+        <li class="nav-item">
+          <%= link_to 'Profile', user_path(current_user.id), class: "nav-link mr-3", style:'color:black' %>
+        </li>
+        <li class="nav-item">
+          <%=link_to 'Logout', logout_path, method: :delete, class: "nav-link mr-3", style:'color:black' %>
+        </li>
+      <% end %>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
     <%= yield %>
   </body>
 </html>

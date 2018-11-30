@@ -1,1 +1,38 @@
 <h1>Bayarboss</h1>
+
+<% if logged_out? %>
+    <h3>Sign Up</h3> 
+    <%= form_for :user, url: users_path, local:true, :method => 'post' do |form| %>
+        <div>
+            <%= form.label :username %>
+            <%= form.text_field :username%>
+        </div>
+        <div>
+            <%= form.label :email %>
+            <%= form.text_field :email, type: 'email' %>
+        </div>
+        <div>
+            <%= form.label :password %>
+            <%= form.text_field :password %>
+        </div>
+        <div>
+            <%= form.label :age %>
+            <%= form.text_field :age %>
+        </div>
+        <div>
+        <%= form.submit %>
+        </div>
+    <% end %>
+
+    <h3>Sign In</h3> 
+    <%= form_for :session, url: login_path do |f| %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, type: 'email' %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+    <% end %>
+<% end %>
