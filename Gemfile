@@ -4,6 +4,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.0'
 
 # Bella added these
+gem 'carrierwave'
+gem "mini_magick"
+gem "rmagick", "~> 2.13.1"
+gem "figaro"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1', '>= 5.2.1.1'
