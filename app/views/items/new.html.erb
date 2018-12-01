@@ -1,0 +1,26 @@
+<h1>Sell Something</h1>
+<%= form_with scope: :item, url: user_items_path(current_user.id), :html => {:multipart => true}, local: true do |form| %>
+    <p>
+        <%= form.label :"Title" %><br>
+        <%= form.text_field :name %>
+    </p>
+    <p>
+        <%= form.label :"Description" %><br>
+        <%= form.text_area :description %>
+    </p>
+    <p>
+        <%= form.label :"Price" %><br>
+        <%= form.text_field :price %>
+    </p>
+    <p>
+        <%= form.label :"Condition" %><br>
+        <%= form.select :condition, ['new', 'used'] %>
+    </p>
+    <p>
+        <%= form.label :"Category" %><br>
+        <%= form.select :category, ['art', 'books', 'clothing', 'beauty', 'property']%>
+    </p>
+    <p>
+        <%= form.submit %>
+    </p>
+<% end %>
