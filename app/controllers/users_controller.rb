@@ -5,6 +5,9 @@ class UsersController < ApplicationController
         log_in @user
         redirect_to root_url
     end
+    
+    def edit
+    end
 
     def show
         @user = User.find(params[:id])

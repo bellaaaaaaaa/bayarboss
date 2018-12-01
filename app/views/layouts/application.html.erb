@@ -25,7 +25,7 @@
 
   <body>
   <nav class="customnav navbar navbar-expand-lg navbar-dark sticky-top bg-white border-bottom border-muted">
-  <a class="navbar-brand text-dark" href="/"><i class="fas fa-brain mr-1"></i>Bayarboss</a>
+  <a class="navbar-brand text-dark" href="/"><i class="fas fa-brain mr-1"></i>eBoy</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -35,6 +35,15 @@
       <ul class="navbar-nav mr-auto">
       
       <% if logged_in? %>
+
+      <li class='nav-item'>
+        <%= form_with url: search_items_path, local: true, class:'form-inline my-2 my-lg-0' , :method => 'post', id: "search-items"  do |form| %>
+          <%= form.text_field :searchitem, class: "form-control mr-sm-2", list: 'list', id:"main-search", placeholder:"Look for an item" %>
+          <%= form.submit "Search", class:"btn btn-outline-primary my-2 my-sm-0" %>
+          <datalist id="list"></datalist>
+      <% end %>
+      </li>
+
         <li class="nav-item">
           <%= link_to 'Profile', user_path(current_user.id), class: "nav-link mr-3", style:'color:black' %>
         </li>
@@ -51,3 +60,41 @@
     <%= yield %>
   </body>
 </html>
+
+<script>
+$(document).on('turbolinks:load', function(){
+
+$("#search-items").on("keyup", function(){
+  autocomplete()
+});
+
+function autocomplete(){
+  $.ajax({
+    url: '/items/search',
+    type: 'POST',
+    data: $("#search-items").serialize(),
+    dataType: 'json',
+    error: function() {
+        console.log("Something went wrong");
+    },
+    success: function(data) {
+      document.getElementById('list').innerHTML = '';
+      $("#list").empty();
+
+      var uniquedata = [];
+      $.each(data, function(i, el){
+          if($.inArray(el, uniquedata) === -1) uniquedata.push(el);
+      });
+
+      uniquedata.forEach(function(element) {
+        var option = document.createElement("option");
+        option.value = element;
+        //append option to list
+        $("#list").append(option);
+      });
+    }
+  });
+}
+})
+</script>
+
