@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     resource :items
   end
 
+  post 'items/:id/bid', to: 'bids#create', as:'create_bid'
+
   resources :items, controller: 'items'
 
 end

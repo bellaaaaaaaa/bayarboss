@@ -10,6 +10,7 @@ gem "rmagick", "~> 2.13.1"
 gem "figaro"
 gem "omniauth"
 gem "omniauth-google-oauth2"
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

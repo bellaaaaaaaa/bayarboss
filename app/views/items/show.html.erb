@@ -1,1 +1,86 @@
-<h1><%= @item.name %></h1>
+<div class="container" id="flashcontainer">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <%= yield %>
+</div>
+<div class='container' style="margin:auto;">
+    <h1><%= @item.name %> </h1>
+    <div class="card flex-row flex-wrap mb-4">
+        <div class="card-header border-0">
+            <img src="//placehold.it/200" alt="">
+        </div>
+        <div class="card-block px-2">
+            <h4 class="card-title"> <%= @item.name %> </h4>
+            <p class="card-text"> <%= @item.description %> </p>
+        </div>
+        <div class="w-100"></div>
+    </div>
+</div>
+
+<div class='container'>
+    <div class='row'>
+        <div class='col-sm'>
+            <h2>Seller</h2>
+            <div class="card border-0" style="width: 18rem;">
+                <img class="card-img-top" src=<%=@user.image_url(:thumb).to_s%> style='border-radius:145px;' alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">For further enquiries on this item, please contact the seller via the in app chatroom.</p>
+                </div>
+            </div>
+        </div>
+        <div class='col-sm'>
+            <div>
+                <h2>Bidders | Current bid: </h2>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="position:absolute; right:0; top:0;">
+                Bid
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <%= form_with scope: :bid, url: create_bid_path(@item.id), local: true do |form| %>
+                                <%= form.label :"Amount" %>
+                                <%= form.text_field :amount %>
+                                <%= form.button :submit => "", class: "btn btn-primary btn-xs" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ^ End of modal -->
+
+            <% @item.bids.each do |bid| %>
+                <div class="card flex-row flex-wrap mb-4">
+                    <div class="card-header border-0">
+                        <img src=<%=bid.user.image_url(:thumb).to_s%> alt="" style="width:2.5rem; border-radius:35px;">
+                    </div>
+                    <div class="card-block px-2">
+                        <h4 class="card-title" style="position:absolute; top:1rem;"><%=bid.user.username%></h4>
+                        <h5 style="position:absolute; right:2.5rem; top:1rem;">$<%=bid.amount%></h5>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="card-footer w-100 text-muted" style="padding:1px; text-align:right;">
+                        <span><%= distance_of_time_in_words(Time.current - bid.created_at )%> ago </span>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<script>
+setTimeout(function() {
+    $('#flashcontainer').fadeOut('fast');
+}, 30000);
+</script>
