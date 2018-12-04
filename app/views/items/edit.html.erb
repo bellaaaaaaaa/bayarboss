@@ -1,0 +1,73 @@
+<% provide :head_tags do %>
+    <meta name='turbolinks-visit-control' content='reload'>
+    <script>
+        document.addEventListener("DOMContentLoaded", initMap2);
+          function initMap2() {
+            var lat = document.getElementById('item_latitude').value;
+            var lng = document.getElementById('item_longitude').value;
+            
+            // if not defined create default position
+            if (!lat || !lng){
+                lat=51.5;
+                lng=-0.125;
+                document.getElementById('item_latitude').value = lat;
+                document.getElementById('item_longitude').value = lng;
+            }
+            var myCoords = new google.maps.LatLng(lat, lng);
+            var mapOptions = {
+            center: myCoords,
+            zoom: 14
+            };
+            var map = new google.maps.Map(document.getElementById('map2'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: myCoords,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                draggable: true
+            });
+            // refresh marker position and recenter map on marker
+            function refreshMarker(){
+                var lat = document.getElementById('item_latitude').value;
+                var lng = document.getElementById('item_longitude').value;
+                var myCoords = new google.maps.LatLng(lat, lng);
+                marker.setPosition(myCoords);
+                map.setCenter(marker.getPosition());   
+            }
+            // when input values change call refreshMarker
+            document.getElementById('item_latitude').onchange = refreshMarker;
+            document.getElementById('item_longitude').onchange = refreshMarker;
+            // when marker is dragged update input values
+            marker.addListener('drag', function() {
+                latlng = marker.getPosition();
+                newlat=(Math.round(latlng.lat()*1000000))/1000000;
+                newlng=(Math.round(latlng.lng()*1000000))/1000000;
+                document.getElementById('item_latitude').value = newlat;
+                document.getElementById('item_longitude').value = newlng;
+            });
+            // When drag ends, center (pan) the map on the marker position
+            marker.addListener('dragend', function() {
+                map.panTo(marker.getPosition());   
+            });
+        }
+    </script>
+<% end %>
+
+<%= form_for @item, local: true do |form| %>
+  <div class="field">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude %>
+  </div>
+
+  <p>
+    <div id="map2" style='width:600px; height:400px;'></div>
+  </p>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

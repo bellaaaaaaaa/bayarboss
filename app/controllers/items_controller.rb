@@ -7,7 +7,9 @@ class ItemsController < ApplicationController
 
     def show
         @item = Item.find(params[:id])
+        @item_bids = Item.find(params[:id]).bids.order("created_at DESC")
         @user = User.find(@item.user_id)
+        @highest_bid = Bid.order("amount DESC").first
     end
 
     def new
@@ -18,7 +20,17 @@ class ItemsController < ApplicationController
         @item = Item.new(item_params)
         @item.update(user_id:current_user.id)
         @item.save
-        redirect_to user_path(current_user.id)
+        redirect_to edit_item_path(@item.id)
+    end
+
+    def edit 
+        @item = Item.find(params[:id])
+    end
+
+    def update
+      @item = Item.find(params[:id])
+      @item.update(item_params)
+      redirect_to @item
     end
 
     def my_items
@@ -45,6 +57,6 @@ class ItemsController < ApplicationController
     private
 
     def item_params
-        params.require(:item).permit(:name, :description, :price, :used, :category)
+        params.require(:item).permit(:name, :description, :price, :used, :category, :place, :latitude, :longitude)
     end
 end

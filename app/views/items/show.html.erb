@@ -1,3 +1,12 @@
+<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      initMap(<%=@item.latitude%>, <%=@item.longitude%>)
+    });
+  </script>
+<% end %>
+
 <div class="container" id="flashcontainer">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
@@ -6,6 +15,18 @@
 </div>
 <div class='container' style="margin:auto;">
     <h1><%= @item.name %> </h1>
+    <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Update 
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <%= render 'form', item: @item %>
+        </div>
+    </div>
+
+
     <div class="card flex-row flex-wrap mb-4">
         <div class="card-header border-0">
             <img src="//placehold.it/200" alt="">
@@ -31,7 +52,7 @@
         </div>
         <div class='col-sm'>
             <div>
-                <h2>Bidders | Current bid: </h2>
+                <h2>Bidders | Highest bid: <% if @item.bids.count > 0 %> $ <%= @highest_bid.amount %> <% end %></h2>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="position:absolute; right:0; top:0;">
                 Bid
@@ -60,7 +81,7 @@
             </div>
             <!-- ^ End of modal -->
 
-            <% @item.bids.each do |bid| %>
+            <% @item_bids.each do |bid| %>
                 <div class="card flex-row flex-wrap mb-4">
                     <div class="card-header border-0">
                         <img src=<%=bid.user.image_url(:thumb).to_s%> alt="" style="width:2.5rem; border-radius:35px;">
@@ -77,10 +98,23 @@
             <% end %>
         </div>
     </div>
+    <div class='row'>
+    <p>
+        <div id="map" style="width:600px; height:400px;"></div>
+    </p>
+    </div>
 </div>
-
 <script>
-setTimeout(function() {
-    $('#flashcontainer').fadeOut('fast');
-}, 30000);
+function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        map: map
+    });
+}
 </script>

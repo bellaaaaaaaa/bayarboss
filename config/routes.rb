@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   get 'category/property_items', to: 'welcome#property_items', as:'property_items'
   get 'category/other_items', to: 'welcome#other_items', as:'other_items'
 
-
   resources :users, controller:'users'
 
   # Routes for user items
@@ -33,5 +32,4 @@ Rails.application.routes.draw do
   post 'items/:id/bid', to: 'bids#create', as:'create_bid'
 
   resources :items, controller: 'items'
-
 end
