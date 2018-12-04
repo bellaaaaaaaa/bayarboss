@@ -1,3 +1,11 @@
+<<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      initMap(<%=@item.latitude%>, <%=@item.longitude%>)
+    });
+  </script>
+<% end %>
 <div class="container" id="flashcontainer">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
@@ -31,7 +39,7 @@
         </div>
         <div class='col-sm'>
             <div>
-                <h2>Bidders | Highest bid: $<%= @highest_bid.amount %> </h2>
+                <h2>Bidders | Highest bid: <% if @item.bids.count > 0 %> $ <%= @highest_bid.amount %> <% end %></h2>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="position:absolute; right:0; top:0;">
                 Bid
@@ -77,4 +85,23 @@
             <% end %>
         </div>
     </div>
+    <div class='row'>
+    <p>
+        <div id="map" style="width:600px; height:400px;"></div>
+    </p>
+    </div>
 </div>
+<script>
+function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        map: map
+    });
+}
+</script>

@@ -28,8 +28,8 @@ ActiveRecord::Base.transaction do
     item['condition'] = ['new', 'used'].sample
     item['user_id'] = uids.sample
     item['place'] = 'Buckingham Palace'
-    item['latitude'] = 51.501564
-    item['longitude'] = -0.141944
+    item['latitude'] = 22.05192883
+    item['longitude'] = -20.21217398
     Item.create(item)
   end
 end
