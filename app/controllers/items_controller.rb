@@ -7,7 +7,9 @@ class ItemsController < ApplicationController
 
     def show
         @item = Item.find(params[:id])
+        @item_bids = Item.find(params[:id]).bids.order("created_at DESC")
         @user = User.find(@item.user_id)
+        @highest_bid = Bid.order("amount DESC").first
     end
 
     def new

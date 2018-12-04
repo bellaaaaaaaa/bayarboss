@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: 2ce7efaf757b5bd41ceaf81745f09096ae90d724
+  revision: aca03bed6918ece830a62fd73085de5db20282b6
   branch: master
   specs:
     faker (1.9.1)
@@ -89,7 +89,7 @@ GEM
     crass (1.0.4)
     erubi (1.7.1)
     execjs (2.7.0)
-    faraday (0.15.3)
+    faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     figaro (1.1.1)
