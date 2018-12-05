@@ -56,17 +56,17 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control mr-sm-2" %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, class: "form-control mr-sm-2" %>
   </div>
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%= form.text_field :price, class: "form-control mr-sm-2" %>
   </div>
 
   <div class="field">
@@ -80,24 +80,24 @@
 
   <div class="field">
     <%= form.label :place %>
-    <%= form.text_field :place %>
+    <%= form.text_field :place, class: "form-control mr-sm-2" %>
   </div>
 
   <div class="field">
     <%= form.label :latitude %>
-    <%= form.text_field :latitude %>
+    <%= form.text_field :latitude, class: "form-control mr-sm-2" %>
   </div>
 
   <div class="field">
     <%= form.label :longitude %>
-    <%= form.text_field :longitude %>
+    <%= form.text_field :longitude, class: "form-control mr-sm-2" %>
   </div>
 
   <p>
-    <div id="map2" style='width:600px; height:400px;'></div>
+    <div id="map2" style='width:100%; height:400px;'></div>
   </p>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Update', class:'btn btn-outline-success' %>
   </div>
 <% end %>

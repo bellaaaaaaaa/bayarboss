@@ -1,41 +1,3 @@
-<% if logged_out? %>
-    <h3>Sign Up</h3> 
-    <%= form_for :user, url: users_path, local:true, :method => 'post' do |form| %>
-        <div>
-            <%= form.label :username %>
-            <%= form.text_field :username%>
-        </div>
-        <div>
-            <%= form.label :email %>
-            <%= form.text_field :email, type: 'email' %>
-        </div>
-        <div>
-            <%= form.label :password %>
-            <%= form.text_field :password %>
-        </div>
-        <div>
-            <%= form.label :age %>
-            <%= form.text_field :age %>
-        </div>
-        <div>
-        <%= form.submit %>
-        </div>
-    <% end %>
-
-    <h3>Sign In</h3> 
-    <%= form_for :session, url: login_path do |f| %>
-
-        <%= f.label :email %>
-        <%= f.email_field :email, type: 'email' %>
-
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-
-        <%= f.submit "Log in", class: "btn btn-primary" %>
-    <% end %>
-    <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
-<% end %>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -63,5 +25,74 @@
         </ul>
     </div>
 </nav>
-<div id='index-categories'>
+
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="row">
+      <div id = "hero-showcase-left" class="container-fluid d-flex">
+        <div class="col-6 d-inline-block mr-2 pl-0 mt-3">
+          <%= image_tag "girl.jpeg", class:"card-img-top border border-muted" %>
+        </div>
+
+        <div id="hero-showcase-right" class="col-md-6 d-inline-block mt-3 bg-white shadow-lg rounded border border-muted">
+          <h1 class="pl-5 pr-5 pt-5 mt-5" style="font-size: 42px;"><strong>eBoy</strong> the greatest online store <strong>in Malaysia.</strong></h1>
+          <p class="hero pl-5 pr-5 pt-4"> Buy something for yourself or sell one of your preloved items to someone else.</p>
+          <p class="hero pl-5 pr-5 pb-3"> Shop from our various categories and have something new delivered to your doorstep- <strong>Let's Shop.</strong></p>
+          <% if logged_out? %>
+            <div class="container pl-5 text-center">
+              <%= form_for :user, url: users_path, local:true, :method => 'post', :html => {:multipart => true} do |form| %>
+                <%= form.text_field :username, class:'form-control mb-2', placeholder:'Username'%>
+                <%= form.text_field :email, type: 'email', class:'form-control mb-2', placeholder:'Email' %>
+                <%= form.password_field :password, class:'form-control mb-3', placeholder:'Password' %>
+                <%= form.text_field :age, class:'form-control mb-3', placeholder:'Age' %>
+                <%= form.file_field :image, class:'form-control mb-3', placeholder:'Image' %>
+                <%= form.submit 'Sign Up', class:'btn btn-primary mb-3' %>
+                <button class="btn btn-outline-success mb-3" type="button"  data-toggle="modal" data-target="#exampleModal">
+                  Sign In
+                </button>
+                <% end %>
+            </div>
+          <% end %>
+        </div>
+    </div>
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:800px;">
+                <div class="container border border-dark">
+                    <div class="row">
+                        <div class="col-md-4 login-bg text-white text-center">
+                            <h2><i class="fas fa-brain fa-5x mt-3"></i></h2>
+                            <h6 class="mb-3">"Empathy begins with understanding life from another person's perspective. </br></br> Nobody has an objective experience of reality. It's all through our own individual prisms."</h6>
+                        </div>
+                            <div class="col-md-8">
+                                <h1 class="text-center mt-3 login-text">Login To Your Account</h1>
+                                <label class="sr-only" for="inlineFormInputGroupUsername2">Email</label>
+                                <%= form_for :session, url: login_path do |form| %>
+                                <div class="input-group mb-2 mr-sm-2 mt-5">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                    </div>
+                                    <%= form.text_field :email, type: 'email', class:'form-control', id:'inlineFormInputGroupUsername2', placeholder:'Email' %>
+                                </div>
+                                <label class="sr-only" for="inlineFormInputGroupUsername2">Email</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                    </div>
+                                    <%= form.password_field :password, class:'form-control', id:'inlineFormInputGroupUsername2', placeholder:'Password'%>
+                                </div>
+                                    <%= form.submit 'Sign In', class:'btn btn-primary mt-3 mb-3' %>
+                                    <%= link_to "Sign in with Google", "/auth/google_oauth2", class:'btn btn-outline-success mt-3 mb-3' %>
+                                <% end %>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<div class='container mt-2' style="text-align: center;">
+    <div id='index-categories'>
+    </div>
 </div>
