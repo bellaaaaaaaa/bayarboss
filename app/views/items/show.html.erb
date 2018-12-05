@@ -16,9 +16,11 @@
 <div class='container' style="margin:auto;">
     <h1><%= @item.name %> </h1>
     <p>
+    <% if @item.user_id == current_user.id %>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Update 
         </button>
+    <% end %>
     </p>
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
@@ -54,9 +56,11 @@
             <div>
                 <h2>Bidders | Highest bid: <% if @item.bids.count > 0 %> $ <%= @highest_bid.amount %> <% end %></h2>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="position:absolute; right:0; top:0;">
-                Bid
-                </button>
+                <% if current_user.id != @item.user_id %>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="position:absolute; right:0; top:0;">
+                    Bid
+                    </button>
+                <% end %>
             </div>
 
             <!-- Modal -->

@@ -3,9 +3,11 @@
         <img src=<%= @user.image_url(:thumb).to_s %> style="width:8rem; border-radius:65px;"><br>
         <h2><%= @user.username %></h2><br>
             <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Edit
-    </button>
+    <% if @user.id == current_user.id %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Edit
+        </button>
+    <% end %>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -53,9 +55,11 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Reviews</a>
-            </li>
-                <%= link_to "Sell", new_item_path(current_user.id), remote: true, class:'nav-link' %>
-            </li>
+            <% if @user.id == current_user.id %>
+                </li>
+                    <%= link_to "Sell", new_item_path(current_user.id), remote: true, class:'nav-link' %>
+                </li>
+            <% end %>
             </ul>
         </div>
         </nav>
