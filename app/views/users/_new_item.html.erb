@@ -2,15 +2,19 @@
 <%= form_with scope: :item, url: user_items_path(current_user.id), :html => {:multipart => true}, local: true do |form| %>
     <p>
         <%= form.label :"Title" %><br>
-        <%= form.text_field :name %>
+        <%= form.text_field :name, class:'form-control' %>
     </p>
     <p>
         <%= form.label :"Description" %><br>
-        <%= form.text_area :description %>
+        <%= form.text_area :description, class:'form-control' %>
     </p>
     <p>
-        <%= form.label :"Price" %><br>
-        <%= form.text_field :price %>
+        <%= form.label :"Start bidding price" %><br>
+        <%= form.text_field :price, class:'form-control' %>
+    </p>
+    <p>
+        <%= form.label :"Immediate purchase price" %><br>
+        <%= form.text_field :highprice, class:'form-control' %>
     </p>
     <p>
         <%= form.label :"Condition" %><br>
@@ -18,12 +22,13 @@
     </p>
     <p>
         <%= form.label :"Category" %><br>
-        <%= form.select :category, ['art', 'beauty', 'books', 'clothing', 'other', 'property']%>
+        <%= form.select :category, ['art', 'beauty', 'books', 'clothing', 'other', 'property'] %>
     </p>
     <p>
-        <%= form.file_field :image %>
+        <%= form.label :'Image' %>
+        <%= form.file_field :image, class:'form-control' %>
     </p>
     <p>
-        <%= form.submit %>
+        <%= form.submit 'Create', class:'btn btn-outline-success', style:'width:100%' %>
     </p>
 <% end %>
