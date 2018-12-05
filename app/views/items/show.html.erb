@@ -14,14 +14,17 @@
   <%= yield %>
 </div>
 <div class='container' style="margin:auto;">
-    <h1><%= @item.name %> </h1>
-    <p>
-    <% if @item.user_id == current_user.id %>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Update 
-        </button>
-    <% end %>
-    </p>
+    <div>
+        <h1><%= @item.name %> </h1>
+        <% if @item.user_id == current_user.id %>
+            <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Update 
+            </button>
+            <%= link_to 'Delete', item_path(@item.id), class:"btn btn-outline-danger",
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+        <% end %>
+    </div>
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
             <%= render 'form', item: @item %>
@@ -31,11 +34,12 @@
 
     <div class="card flex-row flex-wrap mb-4">
         <div class="card-header border-0">
-            <img src="//placehold.it/200" alt="">
+            <img src=<%= @item.image_url(:thumb).to_s %> alt="">
         </div>
         <div class="card-block px-2">
-            <h4 class="card-title"> <%= @item.name %> </h4>
-            <p class="card-text"> <%= @item.description %> </p>
+            <h4 class="card-title"> $ <%= @item.price %>.00 </h4>
+            <p class="card-text"> <strong>Description</strong> <%= @item.description %> </p>
+            <p class="card-text"> <strong>Condition</strong> <%= @item.condition.titlecase %> </p>
         </div>
         <div class="w-100"></div>
     </div>
@@ -48,7 +52,6 @@
             <div class="card border-0" style="width: 18rem;">
                 <img class="card-img-top" src=<%=@user.image_url(:thumb).to_s%> style='border-radius:145px;' alt="Card image cap">
                 <div class="card-body">
-                    <p class="card-text">For further enquiries on this item, please contact the seller via the in app chatroom.</p>
                 </div>
             </div>
         </div>
@@ -68,7 +71,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Update</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -104,7 +107,7 @@
     </div>
     <div class='row'>
     <p>
-        <div id="map" style="width:600px; height:400px;"></div>
+        <div id="map" style="width:100%; height:400px;"></div>
     </p>
     </div>
 </div>

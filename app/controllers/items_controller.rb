@@ -42,6 +42,12 @@ class ItemsController < ApplicationController
         end
     end
 
+    def destroy
+        @item = Item.find(params[:id])
+        @item.destroy
+        redirect_to user_path(current_user.id)
+    end
+
     def search_all_items
         @items = Item.all
         @search_items = Item.search_items(params["searchitem"])
@@ -57,6 +63,6 @@ class ItemsController < ApplicationController
     private
 
     def item_params
-        params.require(:item).permit(:name, :description, :price, :used, :category, :place, :latitude, :longitude)
+        params.require(:item).permit(:name, :description, :price, :used, :category, :place, :latitude, :longitude, :image, :condition)
     end
 end

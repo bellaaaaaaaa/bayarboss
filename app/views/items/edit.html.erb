@@ -52,22 +52,26 @@
     </script>
 <% end %>
 
-<%= form_for @item, local: true do |form| %>
-  <div class="field">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude %>
-  </div>
+<div class='container'>
+    <h1> Where are you selling from? </h1>
 
-  <div class="field">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude %>
-  </div>
+    <%= form_for @item, local: true do |form| %>
+    <div class="field">
+        <%= form.label :latitude %>
+        <%= form.text_field :latitude, class:'form-control'%>
+    </div>
 
-  <p>
-    <div id="map2" style='width:600px; height:400px;'></div>
-  </p>
+    <div class="field">
+        <%= form.label :longitude %>
+        <%= form.text_field :longitude, class:'form-control' %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <p>
+        <div id="map2" style='width:100%px; height:400px; text-align:center;'></div>
+    </p>
+
+    <div class="actions">
+        <%= form.submit 'Enter Location', class:'btn btn-outline-primary'%>
+    </div>
+    <% end %>
+</div>

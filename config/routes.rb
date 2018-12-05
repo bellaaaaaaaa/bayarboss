@@ -23,13 +23,13 @@ Rails.application.routes.draw do
   get 'category/other_items', to: 'welcome#other_items', as:'other_items'
 
   resources :users, controller:'users'
+  resources :items, controller: 'items'
 
   # Routes for user items
-  resources :users do
+  resources :users, only: [:new, :edit, :show, :update, :create] do
     resource :items
   end
 
   post 'items/:id/bid', to: 'bids#create', as:'create_bid'
 
-  resources :items, controller: 'items'
 end

@@ -21,6 +21,9 @@
         <%= form.select :category, ['art', 'beauty', 'books', 'clothing', 'other', 'property']%>
     </p>
     <p>
+        <%= form.file_field :image %>
+    </p>
+    <p>
         <%= form.submit %>
     </p>
 <% end %>
