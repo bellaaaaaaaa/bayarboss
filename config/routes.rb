@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'braintree/new'
   get 'sessions/new'
   get 'welcome/index'
   root 'welcome#index'
@@ -31,5 +32,6 @@ Rails.application.routes.draw do
   end
 
   post 'items/:id/bid', to: 'bids#create', as:'create_bid'
+  post 'items/:id/braintree/checkout' => 'braintree#checkout', as: 'braintree_checkout'
 
 end

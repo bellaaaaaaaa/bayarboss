@@ -7,15 +7,9 @@
   </script>
 <% end %>
 
-<div class="container" id="flashcontainer">
-  <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
-  <% end %>
-  <%= yield %>
-</div>
 <div class='container' style="margin:auto;">
     <div>
-        <h1><%= @item.name %> </h1>
+        <h1><%= @item.name %> Status: <%= @item.status.titlecase %> </h1>
         <% if @item.user_id == current_user.id %>
             <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 Update 
@@ -23,6 +17,9 @@
             <%= link_to 'Delete', item_path(@item.id), class:"btn btn-outline-danger",
               method: :delete,
               data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        <% if @item.status == 'open' %>
+            <%= link_to "Make Payment", braintree_new_path(@item.id) %>
         <% end %>
     </div>
     <div class="collapse" id="collapseExample">
@@ -37,7 +34,8 @@
             <img src=<%= @item.image_url(:thumb).to_s %> alt="">
         </div>
         <div class="card-block px-2">
-            <h4 class="card-title"> $ <%= @item.price %>.00 </h4>
+            <h4 class="card-title"> Bidding Price: $ <%= @item.price %>.00 </h4>
+            <h4 class="card-title"> Immediate Purchase Price: $ <%= @item.highprice %>.00 </h4>
             <p class="card-text"> <strong>Description</strong> <%= @item.description %> </p>
             <p class="card-text"> <strong>Condition</strong> <%= @item.condition.titlecase %> </p>
         </div>
@@ -59,7 +57,7 @@
             <div>
                 <h2>Bidders | Highest bid: <% if @item.bids.count > 0 %> $ <%= @highest_bid.amount %> <% end %></h2>
                 <!-- Button trigger modal -->
-                <% if current_user.id != @item.user_id %>
+                <% if current_user.id != @item.user_id && @item.status == 'open' %>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="position:absolute; right:0; top:0;">
                     Bid
                     </button>
