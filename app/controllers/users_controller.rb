@@ -3,7 +3,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             log_in @user
-            format.html { redirect_to rooe_url, notice: 'Signed up!' }
+            redirect_to root_url
         else
             redirect_to root_url
         end
