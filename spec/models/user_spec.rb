@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
         it { should validate_uniqueness_of(:email) }
         it { should have_many(:bids) }
         it { should have_many(:items) }
+        it { should have_many(:authentications) }
 
         it 'bella shoud be an instance of User' do
             expect(bella).to be_a User

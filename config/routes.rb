@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get '/users/:id/new_item', to: 'users#new_item', as:'new_item'
   get '/users/:id/my_items', to: 'items#my_items', as:'my_items'
+  get '/users/:id/my_reviews', to: 'reviews#my_reviews', as:'my_reviews'
 
   # Routes for index page item categories
   get 'category/art_items', to: 'welcome#art_items', as:'art_items'
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
     resource :items
   end
 
+  post 'users/:user_id/items/:id/review', to: 'reviews#create', as:'create_review'
   post 'items/:id/bid', to: 'bids#create', as:'create_bid'
   post 'items/:id/braintree/checkout' => 'braintree#checkout', as: 'braintree_checkout'
 
