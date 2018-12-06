@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   def self.search_items(query)
     where("name ILIKE :name", name: "%#{query}%")
   end
-
+  
   private
   
   def validate_prices

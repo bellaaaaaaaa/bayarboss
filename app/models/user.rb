@@ -4,6 +4,7 @@ class User < ApplicationRecord
     has_many :bids, dependent: :destroy
     has_secure_password
     has_many :authentications, dependent: :destroy
+    has_many :reviews, dependent: :destroy
 
     # VALIDATIONS
     validates_uniqueness_of :email
