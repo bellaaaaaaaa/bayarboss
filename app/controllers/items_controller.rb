@@ -22,7 +22,6 @@ class ItemsController < ApplicationController
         if @item.save
             redirect_to edit_item_path(@item.id)
         else
-            byebug
             redirect_to user_path(current_user.id)
         end
     end
@@ -55,7 +54,6 @@ class ItemsController < ApplicationController
     def search_all_items
         @items = Item.all
         @search_items = Item.search_items(params["searchitem"])
-        # byebug
         @item = Item.find_by(name: params["searchitem"])
 
         respond_to do |format|

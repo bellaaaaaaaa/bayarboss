@@ -1,7 +1,6 @@
 class ReviewsController < ApplicationController
 
     def my_reviews
-        # byebug
         @user = User.find(params[:id])
         @my_reviews = Review.where(review_for:@user.id)
         @item = current_user.reviews.find_by(review_for: @user.id)

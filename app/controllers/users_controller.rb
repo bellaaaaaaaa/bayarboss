@@ -23,7 +23,6 @@ class UsersController < ApplicationController
     end
 
     def new_item
-        # byebug
         respond_to do |format|
             format.html {}
             format.js

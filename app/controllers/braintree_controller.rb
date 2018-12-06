@@ -1,6 +1,5 @@
 class BraintreeController < ApplicationController
   def new
-    # byebug
     @item = Item.find(params[:format])
     @client_token = Braintree::ClientToken.generate
   end
@@ -16,8 +15,7 @@ class BraintreeController < ApplicationController
         :submit_for_settlement => true
       }
       )
-      
-      byebug
+    
     if result.success?
       @item.update(status:'closed')
       @review = Review.new(review_for: @item.user.id, user_id:current_user.id, review_item:@item.id)
