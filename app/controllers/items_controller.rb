@@ -19,8 +19,12 @@ class ItemsController < ApplicationController
     def create
         @item = Item.new(item_params)
         @item.update(user_id:current_user.id)
-        @item.save
-        redirect_to edit_item_path(@item.id)
+        if @item.save
+            redirect_to edit_item_path(@item.id)
+        else
+            byebug
+            redirect_to user_path(current_user.id)
+        end
     end
 
     def edit 

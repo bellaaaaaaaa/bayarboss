@@ -6,10 +6,17 @@ RSpec.describe User, type: :model do
     let(:another_user) {User.new}
     let(:bella) {User.new(username:'bella', email:'bella@gmail.com', password:'asdf')}
     let(:keith) {User.new(username:'keith', password:'asdf')}
+
     describe User do
         it { is_expected.to validate_presence_of(:username) }
         it { is_expected.to validate_presence_of(:email) }
         it { should validate_uniqueness_of(:email) }
+        it { should have_many(:bids) }
+        it { should have_many(:items) }
+
+        it 'bella shoud be an instance of User' do
+            expect(bella).to be_a User
+        end
 
         it "User is not valid without a username" do
             user.email = 'user@gmail.com'

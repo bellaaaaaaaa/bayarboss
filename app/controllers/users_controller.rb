@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
-        @user.save
-        log_in @user
-        redirect_to root_url
+        if @user.save
+            log_in @user
+            format.html { redirect_to rooe_url, notice: 'Signed up!' }
+        else
+            redirect_to root_url
+        end
     end
     
     def edit
