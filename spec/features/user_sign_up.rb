@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
+
 feature "Sign up", :type => :feature do
     scenario "Root url page to profile" do
         visit "/"
