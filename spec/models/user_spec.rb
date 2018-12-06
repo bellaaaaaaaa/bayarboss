@@ -18,11 +18,6 @@ RSpec.describe User, type: :model do
             expect(bella).to be_a User
         end
 
-        # it 'User is created once required params are passed and able to be found in database' do
-        #     bob = User.new(username:'bob', email:'bob@gmail.com', password:'asdf')
-        #     expect{bob.save}.to change { User.all.count }
-        # end
-
         it "User is not valid without a username" do
             user.email = 'user@gmail.com'
             user.password = 'asdf'
