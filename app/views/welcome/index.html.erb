@@ -42,8 +42,8 @@
             <div class="container pl-5 text-center">
               <%= form_for :user, url: users_path, local:true, :method => 'post', :html => {:multipart => true} do |form| %>
                 <%= form.text_field :username, class:'form-control mb-2', placeholder:'Username'%>
-                <%= form.text_field :email, type: 'email', class:'form-control mb-2', placeholder:'Email' %>
-                <%= form.password_field :password, class:'form-control mb-3', placeholder:'Password' %>
+                <%= form.text_field :email, type: 'email', class:'form-control mb-2', placeholder:'Email', id:'email_signup' %>
+                <%= form.password_field :password, class:'form-control mb-3', placeholder:'Password', id:'password_signup' %>
                 <%= form.text_field :age, class:'form-control mb-3', placeholder:'Age' %>
                 <%= form.file_field :image, class:'form-control mb-3', placeholder:'Image' %>
                 <%= form.submit 'Sign Up', class:'btn btn-primary mb-3' %>
