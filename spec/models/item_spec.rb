@@ -67,8 +67,8 @@ RSpec.describe Item, type: :model do
         end
 
         it 'returns items where name is like query' do
-            Item.create(name: 'z', description: 'x', price: 10, condition: 'new', category: 'art', user_id: 1, place: 'paris', highprice: 20, status: "open")
-            expect(Item.search_items('z').count).to eq 1
+            Item.create(name: 'potato', description: 'x', price: 10, condition: 'new', category: 'art', user_id: 1, place: 'paris', highprice: 20, status: "open")
+            expect(Item.search_items('potato').count).to eq 1
         end
     end
 end
