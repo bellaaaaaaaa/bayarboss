@@ -1,6 +1,6 @@
 <div class='container'>
     <div class='pt-2 mt-5'style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <img src=<%= @user.image_url(:thumb).to_s %> style="width:8rem; border-radius:65px;"><br>
+        <img src=<%= @user.image_url(:thumb).to_s %> style="width:8rem; border-radius:65px;" alt="Card image cap"><br>
         <h2 id='username'><%= @user.username %></h2><br>
             <!-- Button trigger modal -->
     <% if @user.id == current_user.id %>
