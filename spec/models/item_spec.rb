@@ -2,8 +2,9 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe Item, type: :model do
-    let(:item)	{Item.new}
-    let(:item1)	{Item.new(user_id:1, name:'shirt', price:'abc', description:'comfy', condition:'new', category:'clothing', place:'london', highprice:100)}
+    let(:bella) {User.create(username:'bella', email:'bella@gmail.com', password:'asdf')}
+    let(:item)	{Item.new(user: bella)}
+    let(:item1)	{Item.new(user_id:bella.id, name:'shirt', price:'abc', description:'comfy', condition:'new', category:'clothing', place:'london', highprice:100)}
     let(:another_item) {Item.new(name:'blouse', description:'nice', price:100, condition:'new', category:'clothing', place:'paris', highprice:200, status:'open')}
     let(:improper_category) {'asdf'} 
     let(:x){10}
@@ -35,6 +36,7 @@ RSpec.describe Item, type: :model do
         end
         
         it "price has to be an integer" do
+
             item1.price = 10
             expect(item1).to be_valid
         end
@@ -45,14 +47,14 @@ RSpec.describe Item, type: :model do
         end
         
         it 'highprice has to be greater than price' do
-            item.user_id = 1
             item.price = x
             item.highprice = y
+            # byebug
             expect(item).to be_valid
         end
 
         it 'price cannot be greater than highprice' do
-            item.user_id = 1
+            # item.user_id = 1
             item.price = y
             item.highprice = x
             expect(item).not_to be_valid
@@ -62,13 +64,13 @@ RSpec.describe Item, type: :model do
         
     context 'self.search_items' do
         it 'returns items where name is like query' do
-            Item.create(name: 'x', description: 'x', price: 10, condition: 'new', category: 'art', user_id: 1, place: 'paris', highprice: 20, status: "open")
+            Item.create(name: 'x', description: 'x', price: 10, condition: 'new', category: 'art', user_id: bella.id, place: 'paris', highprice: 20, status: "open")
             expect(Item.search_items('y').count).to eq 0
         end
 
         it 'returns items where name is like query' do
-            Item.create(name: 'potato', description: 'x', price: 10, condition: 'new', category: 'art', user_id: 1, place: 'paris', highprice: 20, status: "open")
-            expect(Item.search_items('potato').count).to eq 1
+            Item.create(name: 'nick', description: 'x', price: 10, condition: 'new', category: 'art', user_id: bella.id, place: 'paris', highprice: 20, status: "open")
+            expect(Item.search_items('nick').count).to eq 1
         end
     end
 end

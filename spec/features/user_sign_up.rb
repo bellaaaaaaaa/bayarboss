@@ -10,7 +10,6 @@ feature "Sign up", :type => :feature do
         fill_in "password_signup", :with => "abcdef"
         fill_in "Age", :with => "19"
         click_button "Sign Up"
-        page.html
         expect(page).to have_text("Welcome!")
     end
 end
